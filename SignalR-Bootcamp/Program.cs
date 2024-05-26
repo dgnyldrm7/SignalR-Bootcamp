@@ -1,8 +1,12 @@
+using SignalR_Bootcamp.Hubs;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+
+builder.Services.AddSignalR();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -14,6 +18,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.MapHub<TypeSafeChatApp>("/chatHub");
 app.UseStaticFiles();
 
 app.UseRouting();

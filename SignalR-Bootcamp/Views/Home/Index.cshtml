@@ -2,7 +2,35 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@section Scripts{
+    <script src="~/js/signal-client.js"></script>
+}
+
+
+<div class="alert alert-warning">
+<h1 class="text-center">SıgnalR - Bootcamp</h1>
+</div>
+
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6 text-center">
+            
+            <button class="btn btn-info" id="send-message-to-allClient" >Tüm Clientlere Mesaj Gönder</button>
+
+
+            <button type="button" class="btn btn-primary position-relative m-3" disabled>
+                Hub'a bağlı kişi sayısı
+                <span id="kisiSayisi" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    99+
+                    <span class="visually-hidden">unread messages</span>
+                </span>
+            </button>
+
+            <button class="btn btn-secondary kendineMesaj" >Sadece Kendine Mesaj Gönder</button>
+
+
+            <button class="btn btn-danger" id="digerlerineMessage"> Diğerlerine Mesaj Gönder </button>
+        </div>
+    </div>
 </div>
