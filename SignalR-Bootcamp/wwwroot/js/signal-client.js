@@ -14,15 +14,22 @@ $(document).ready(function () {
     const RecaiveMessageOtherClients = "RecaiveOtherClientsMessage";
     const SendOtherClientsMessageMethod = "SendOtherClientsMessage";
 
+
+    const RecaiveSpecifitClientIdMessageFirst = "RecaiveSpecifitClientIdMessage";
+    const SendSpesificClientIdMessageSecond = "SendSpesificClientIdMessage";
+
     const connection = new signalR.HubConnectionBuilder()
         .withUrl("/chatHub")
         .build();
 
- 
+
+
     function start()
     {
         connection.start().then(function () {
             console.log("HUB CONNECTED");
+            const userId = connection.connectionId;
+            $("#userId").html(`ClientUserId = ${userId}`);
         })
 
     }
@@ -44,7 +51,7 @@ $(document).ready(function () {
 
     //subcribe olmak!
     connection.on(RecaiveMessageAllClientForClient, (message) => {
-        console.log("Gelen mesaj = ", message);
+        console.log("Gelen mesaj=",message);
     });
 
 
@@ -59,7 +66,13 @@ $(document).ready(function () {
 
     connection.on(RecaiveMessageOtherClients, (message) => {
         console.log("Baskasindan geldi bu mesaj : ", message);
-    })
+    });
+
+    connection.on(RecaiveSpecifitClientIdMessageFirst, (message) => {
+        console.log("Giden Mesaj : ", message);
+    });
+
+
 
 
 
@@ -84,8 +97,22 @@ $(document).ready(function () {
         const message = "Digerlerine mesaj yolladim. Kendime degil!";
         connection.invoke(SendOtherClientsMessageMethod, message).catch(function (error) {
             console.log("Hata : ", error);
-        })
+        });
     });
+
+    //Specific message!
+    $("#gonderButon").click(function(){
+        const clientId = $(".clientId").val();
+        const message = "Selamlar";
+        connection.invoke(SendSpesificClientIdMessageSecond ,clientId,message).catch(function (error) {
+            console.log("Problem", error);
+        });
+    });
+
+
+
+
+
 
 
     

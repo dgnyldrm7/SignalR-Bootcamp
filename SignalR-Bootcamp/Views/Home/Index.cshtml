@@ -14,15 +14,18 @@
 
 <div class="container my-5">
     <div class="row">
-        <div class="col-md-6 text-center">
+        <div class="col-md-6 text-center offset-md-3">
             
+            <div class="alert alert-success"> <span id="userId">0</span> </div>
+
+
             <button class="btn btn-info" id="send-message-to-allClient" >Tüm Clientlere Mesaj Gönder</button>
 
 
             <button type="button" class="btn btn-primary position-relative m-3" disabled>
                 Hub'a bağlı kişi sayısı
                 <span id="kisiSayisi" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    99+
+                    
                     <span class="visually-hidden">unread messages</span>
                 </span>
             </button>
@@ -31,6 +34,29 @@
 
 
             <button class="btn btn-danger" id="digerlerineMessage"> Diğerlerine Mesaj Gönder </button>
+
+            <hr />
+
+            <div class="row">
+                <div class="col">
+                    <span>ClientId</span>
+                </div>
+                <div class="col">
+                    <div class="input-group input-group-sm mb-3">
+                        <input type="text" class="form-control clientId" aria-label="Small" placeholder="Client Id" aria-describedby="inputGroup-sizing-sm">
+                    </div>
+                </div>
+                <div class="col">
+                    <button class="btn btn-primary" id="gonderButon">Mesaj Gonder</button>
+                </div>
+            </div>
+
+
+           
+
+
+
+
         </div>
     </div>
 </div>

@@ -26,6 +26,14 @@ namespace SignalR_Bootcamp.Hubs
             await Clients.Others.RecaiveOtherClientsMessage(message);
         }
 
+        //spesific client'a message göndermek
+        public async Task SendSpesificClientIdMessage(string clientId, string message)
+        {
+            await Clients.Client(clientId).RecaiveSpecifitClientIdMessage(message);
+        }
+
+   
+
 
         public override async Task OnConnectedAsync()
         {

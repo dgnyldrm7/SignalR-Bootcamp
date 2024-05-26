@@ -6,5 +6,6 @@
         Task RecaiveAllClientCount(int Sumcount);
         Task RecaiveYourSelfClientMessage(string message);
         Task RecaiveOtherClientsMessage(string message);
+        Task RecaiveSpecifitClientIdMessage(string message);
     }
 }
