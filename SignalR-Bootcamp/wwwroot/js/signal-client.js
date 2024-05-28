@@ -18,6 +18,11 @@ $(document).ready(function () {
     const RecaiveSpecifitClientIdMessageFirst = "RecaiveSpecifitClientIdMessage";
     const SendSpesificClientIdMessageSecond = "SendSpesificClientIdMessage";
 
+
+    const AddGroupForClientId = "AddToGroupClientId";
+    const RemoveToGroupClientId = "RemoveToGroupClientId";
+
+
     const connection = new signalR.HubConnectionBuilder()
         .withUrl("/chatHub")
         .build();
@@ -31,8 +36,24 @@ $(document).ready(function () {
             const userId = connection.connectionId;
             $("#userId").html(`ClientUserId = ${userId}`);
         })
-
     }
+
+
+
+    const groupA = "Group A";
+    const groupB = "Group B";
+    let groupList = [];
+
+    function RefreshGroup() {
+        $("#groupArea").empty();
+        groupList.forEach(x => {
+            $("#groupArea").append(`<p>${x}</p>`);
+        });
+    }
+
+
+
+
 
 
     //Check Control!
@@ -79,6 +100,7 @@ $(document).ready(function () {
 
 
 
+
     $(".kendineMesaj").click(function () {
         const message = "Merhaba Canim";
         connection.invoke(SendMesageYourSelf, message).catch(function (error) {
@@ -107,6 +129,74 @@ $(document).ready(function () {
         connection.invoke(SendSpesificClientIdMessageSecond ,clientId,message).catch(function (error) {
             console.log("Problem", error);
         });
+    });
+
+
+
+
+    //Group Ýþlemleri!
+
+
+    
+    $("#AEkle").click(function () {
+        // groupA'nýn daha önce eklenip eklenmediðini kontrol ediyoruz
+        if (!groupList.includes(groupA)) {
+            // Eðer yoksa, eklemek için connection.invoke fonksiyonunu çaðýrýyoruz
+            connection.invoke(AddGroupForClientId, groupA).then(() => {
+                // Ekleme iþlemi baþarýlý olursa, groupList'e ekliyoruz
+                groupList.push(groupA);
+                // Gruplarý yenilemek için RefreshGroup() fonksiyonunu çaðýrýyoruz
+                RefreshGroup();
+            });
+        }
+        else {
+            alert("Zaten groupA'dasin.")
+        }
+    });
+
+
+    $("#ACikar").click(function () {
+        if (groupList.includes(groupA)) {
+            // Eðer yoksa, eklemek için connection.invoke fonksiyonunu çaðýrýyoruz
+            connection.invoke(RemoveToGroupClientId, groupA).then(() => {
+                groupList = groupList.filter(x => x !== groupA);
+                RefreshGroup();
+            });
+        }
+        else {
+            alert("Groun A da yoksun");
+        }
+    });
+
+
+    $("#BEkle").click(function () {
+        // groupA'nýn daha önce eklenip eklenmediðini kontrol ediyoruz
+        if (!groupList.includes(groupB)) {
+            // Eðer yoksa, eklemek için connection.invoke fonksiyonunu çaðýrýyoruz
+            connection.invoke(AddGroupForClientId, groupB).then(() => {
+                // Ekleme iþlemi baþarýlý olursa, groupList'e ekliyoruz
+                groupList.push(groupB);
+                // Gruplarý yenilemek için RefreshGroup() fonksiyonunu çaðýrýyoruz
+                RefreshGroup();
+            });
+        }
+        else {
+            alert("Zaten groupB'desin.")
+        }
+    });
+
+
+    $("#BCikar").click(function () {
+        if (groupList.includes(groupB)) {
+            // Eðer yoksa, eklemek için connection.invoke fonksiyonunu çaðýrýyoruz
+            connection.invoke(RemoveToGroupClientId, groupB).then(() => {
+                groupList = groupList.filter(x => x !== groupB);
+                RefreshGroup();
+            });
+        }
+        else {
+            alert("Groub B' de yoksun")
+        }
     });
 
 
